@@ -5,13 +5,14 @@ from pydantic import BaseModel
 class OllamaInput(BaseModel):
     prompt: str
     modelname: str
+    systemPrompt:str
 
 def GetAnswer(input:OllamaInput):
     try:
         r = ollama.generate(
         model='duckdb-nsql',
-        system=input.prompt,
-        prompt='get all columns ending with _amount from taxi table',
+        system=input.systemPrompt,
+        prompt=input.prompt,
         )
         # ollama.generate(model='llama3.2:latest',
         # prompt='what is a qubit?')
